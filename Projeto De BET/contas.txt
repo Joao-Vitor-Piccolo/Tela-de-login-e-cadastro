@@ -1,3 +1,0 @@
-contas1 = {'admin': 'admin'}
-
-
