@@ -2,6 +2,9 @@ import customtkinter as ctk
 from utils import *
 from PIL import Image
 
+acesso = False
+mensagem_login = ''
+
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
 
@@ -74,8 +77,10 @@ def botao_login():
             label5.configure(text='Usuario não encontrado')
         else:
             label5.configure(text='Usuario encontrado')
+            global acesso
             acesso = True
-            return acesso
+            janela_principal()
+            print(acesso)
 
     salvar = ctk.CTkButton(frame_base, text='Salvar', command=salvar, fg_color='#a1a1a1',
                            text_color='black', border_width=2, border_color='black')
@@ -147,6 +152,16 @@ btn_log.place(relx=0, rely=0.15)
 btn_cad = ctk.CTkButton(frame3, text='Cadastro   ', command=botao_cadastro, width=80, height=5,
                         border_color='black', fg_color='black', hover_color='#313136')
 btn_cad.place(relx=0, rely=0.27)
+
+
+def janela_principal():
+    if acesso:
+        nova_janela = ctk.CTkToplevel()
+        nova_janela.title("Nova Janela")
+        nova_janela.geometry("400x300")
+        label = ctk.CTkLabel(master=nova_janela, text=mensagem_login)
+        label.pack(pady=20)
+
 
 if __name__ == '__main__':
     tela_login.mainloop()
