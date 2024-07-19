@@ -70,20 +70,23 @@ def botao_login():
         senha.get()
         x = str(login.get())
         y = str(senha.get())
+        verifica = verificar_conta(x, y)
         if x == '' or y == '':
             label5.configure(text='Preencha os quadrados!')
-            # elif x not in contas1 or contas1[x] != y:
+        elif not verifica:
             label5.configure(text='Usuario não encontrado')
-        else:
+        elif verifica:
             label5.configure(text='Usuario encontrado')
             global acesso
             acesso = True
             janela_principal()
-            print(acesso)
 
     salvar = ctk.CTkButton(frame_base, text='Salvar', command=salvar, fg_color='#a1a1a1',
                            text_color='black', border_width=2, border_color='black')
     salvar.place(x=55, y=295)
+
+
+botao_login()
 
 
 # -_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_--_-_-
@@ -134,10 +137,8 @@ def botao_cadastro():
         y = conf_email.get()
         a = senha.get()
         b = conf_senha.get()
-        if x == y:
-            if a == b:
-                # with open(contas.py, 'w') as leitura:f
-                pass
+        if x == y and a == b:
+            criar_conta(x, a)
 
     salvar = ctk.CTkButton(frame_base, text='Salvar', command=salvar, fg_color='#a1a1a1',
                            text_color='black', border_width=2, border_color='black')
@@ -152,14 +153,14 @@ btn_cad = ctk.CTkButton(frame3, text='Cadastro   ', command=botao_cadastro, widt
                         border_color='black', fg_color='black', hover_color='#313136')
 btn_cad.place(relx=0, rely=0.27)
 
+# -=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=--=-
 
 def janela_principal():
     if acesso:
-        nova_janela = ctk.CTkToplevel()
-        nova_janela.title("Nova Janela")
-        nova_janela.geometry("400x300")
-        label = ctk.CTkLabel(master=nova_janela, text=mensagem_login)
-        label.pack(pady=20)
+        app = ctk.CTk()
+        app.title('Aposte, aposte, APOSTE!')
+        app.geometry("400x300")
+        app.mainloop()
 
 
 if __name__ == '__main__':
